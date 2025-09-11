@@ -1,0 +1,1 @@
+# texts.py fayli
