@@ -10,3 +10,10 @@ class CoffeState(StatesGroup):
     category = State()
     quantity = State()
     
+    # order
+    order = State()
+    name = State()
+    phone = State()
+    comment = State()
+    confirm = State()
+    

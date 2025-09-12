@@ -31,3 +31,25 @@ def product_detail(detail: dict, categories_text) -> str:
     )
 
     return text
+
+
+order = "🛒 Buyurtma berish uchun quyidagi tugmani bosing 👇"
+
+
+
+NAME = "👤 Iltimos, ismingizni kiriting:"
+PHONE = "📱 Iltimos, telefon raqamingizni yuboring:"
+COMMENT = "✏️ Agar qo‘shimcha izoh bo‘lsa, yozing:"
+
+
+
+def confirm(**kwargs) -> str:
+    return (
+        "📝 Buyurtma ma'lumotlari:\n\n"
+        f"☕ Coffee: {kwargs.get('coffe', '-')}\n"
+        f"📂 Kategoriya: {kwargs.get('category', '-')}\n"
+        f"🔢 Miqdor: {kwargs.get('quantity', '-')}\n"
+        f"👤 Ism: {kwargs.get('name', '-')}\n"
+        f"📞 Telefon: {kwargs.get('phone', '-')}\n"
+        f"💬 Izoh: {kwargs.get('comment', '-')}\n"
+    )

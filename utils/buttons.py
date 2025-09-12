@@ -45,3 +45,44 @@ def quantity():
     keyboard.add(KeyboardButton(text="⬅️ Orqaga"))
 
     return keyboard
+
+
+
+order = ReplyKeyboardMarkup(
+    keyboard=[
+        [KeyboardButton(text="✅ Buyurtma berish")],
+        [KeyboardButton(text="⬅️ Orqaga")]
+    ],
+    resize_keyboard=True
+)
+
+
+BACK = ReplyKeyboardMarkup(
+    keyboard=[
+        [KeyboardButton(text="⬅️ Orqaga")]
+    ],
+    resize_keyboard=True
+)
+
+
+PHONE = ReplyKeyboardMarkup(
+    keyboard=[
+        [KeyboardButton(text="📱 Telefon raqamni yuborish", request_contact=True)],
+        [KeyboardButton(text="⬅️ Orqaga")]
+    ],
+    resize_keyboard=True
+)
+
+
+CONFIRM = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="✅ Tasdiqlash"),
+        ],
+        [
+            KeyboardButton(text="❌ Bekor qilish"),
+        ]
+    ],
+    resize_keyboard=True,   
+    one_time_keyboard=True  
+)
