@@ -41,4 +41,8 @@ async def _task(message: Message, state: FSMContext):
 
 @dp.message_handler(content_types=['text'], state=CoffeState.category)
 async def category_handler(message: Message, state: FSMContext):
-    await create_task(_task(message, state))
+    
+    if message.text == buttons.BACK_TEXT:
+        await start_handler(message, state)
+    else:
+        await create_task(_task(message, state))

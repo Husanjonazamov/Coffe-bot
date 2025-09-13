@@ -6,6 +6,7 @@ from utils import texts
 from state.state import CoffeState
 from utils.env import ADMIN
 from services.services import getProductDetail
+from handlers.start import start_handler
 
 
 
@@ -34,6 +35,6 @@ async def confirm_order(message: types.Message, state: FSMContext):
             text=f"📩 Yangi buyurtma keldi!\n\n{text}"
         )
 
-    await message.answer("✅ Buyurtmangiz adminimizga yuborildi. Tez orada siz bilan bog'lanamiz!")
+    await start_handler(message, state)
 
     await state.finish()

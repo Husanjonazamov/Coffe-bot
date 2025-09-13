@@ -39,4 +39,12 @@ async def _task(message: Message, state: FSMContext):
 
 @dp.message_handler(content_types=['contact', 'text'], state=CoffeState.comment)
 async def phone_handler(message: Message, state: FSMContext):
-    await create_task(_task(message, state))
+    if message.text == buttons.BACK_TEXT:
+        await message.answer(
+            texts.PHONE,
+            reply_markup=buttons.PHONE
+        )    
+        
+        await CoffeState.phone.set()
+    else:
+        await create_task(_task(message, state))

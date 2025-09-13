@@ -3,3 +3,4 @@ from . import name
 from . import phone
 from . import comment
 from . import confirm
+from . import cencel

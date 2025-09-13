@@ -27,4 +27,15 @@ async def _task(message: Message, state: FSMContext):
 
 @dp.message_handler(content_types=['text'], state=CoffeState.name)
 async def name_handler(message: Message, state: FSMContext):
-    await create_task(_task(message, state))
+    if message.text == buttons.BACK_TEXT:
+        user_text = message.text.strip()
+        await state.update_data({"quantity": user_text})
+
+        await message.answer(
+            texts.order,
+            reply_markup=buttons.order
+        )    
+        
+        await CoffeState.order.set()
+    else:
+        await create_task(_task(message, state))

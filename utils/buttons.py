@@ -1,5 +1,7 @@
-# buttons.py
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+
+# Universal BACK tugmasi
+BACK_TEXT = "⬅️ Orqaga"
 
 def get_product(products):
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
@@ -27,7 +29,8 @@ def get_category(categories):
 
     keyboard.row(*buttons)
 
-    keyboard.add(KeyboardButton(text="⬅️ Orqaga"))
+    # Universal BACK tugmasi
+    keyboard.add(KeyboardButton(text=BACK_TEXT))
 
     return keyboard
 
@@ -42,7 +45,8 @@ def quantity():
     buttons = [KeyboardButton(text=str(i)) for i in range(1, 10)]
     keyboard.add(*buttons)
 
-    keyboard.add(KeyboardButton(text="⬅️ Orqaga"))
+    # Universal BACK tugmasi
+    keyboard.add(KeyboardButton(text=BACK_TEXT))
 
     return keyboard
 
@@ -51,7 +55,7 @@ def quantity():
 order = ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text="✅ Buyurtma berish")],
-        [KeyboardButton(text="⬅️ Orqaga")]
+        [KeyboardButton(text=BACK_TEXT)]
     ],
     resize_keyboard=True
 )
@@ -59,7 +63,7 @@ order = ReplyKeyboardMarkup(
 
 BACK = ReplyKeyboardMarkup(
     keyboard=[
-        [KeyboardButton(text="⬅️ Orqaga")]
+        [KeyboardButton(text=BACK_TEXT)]
     ],
     resize_keyboard=True
 )
@@ -68,7 +72,7 @@ BACK = ReplyKeyboardMarkup(
 PHONE = ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text="📱 Telefon raqamni yuborish", request_contact=True)],
-        [KeyboardButton(text="⬅️ Orqaga")]
+        [KeyboardButton(text=BACK_TEXT)]
     ],
     resize_keyboard=True
 )
