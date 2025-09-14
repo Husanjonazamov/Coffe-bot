@@ -4,7 +4,7 @@ from aiogram.dispatcher import FSMContext
 from loader import dp, bot
 from utils import texts
 from state.state import CoffeState
-from utils.env import ADMIN
+from utils.env import CHANNEL
 from services.services import getProductDetail
 from handlers.start import start_handler
 
@@ -25,13 +25,13 @@ async def confirm_order(message: types.Message, state: FSMContext):
     detail = data.get("detail")
     if image_file_id:
         await bot.send_photo(
-            chat_id=ADMIN,
+            chat_id=CHANNEL,
             photo=image_file_id,
             caption=f"📩 Yangi buyurtma keldi!\n\n{text}"
         )
     else:
         await bot.send_message(
-            chat_id=ADMIN,
+            chat_id=CHANNEL,
             text=f"📩 Yangi buyurtma keldi!\n\n{text}"
         )
 
