@@ -5,7 +5,7 @@ from asyncio.tasks import create_task
 
 from loader import dp, bot
 from utils import texts, buttons
-from services.services import getProduct, getProductDetail
+from services.services import getProduct, getProductDetail, getUser
 from state.state import CoffeState
 from handlers.start import start_handler
 
@@ -13,6 +13,9 @@ from handlers.start import start_handler
 async def _task(message: Message, state: FSMContext):
     
     user_text = message.text.strip()
+    user_id=message.from_user.id
+    user = getUser(user_id)
+    lang = user['lang']
     
 
     detail = getProductDetail(user_text)
@@ -23,14 +26,14 @@ async def _task(message: Message, state: FSMContext):
     detail = getProductDetail(user_text)
     
     categories = detail["data"]["category"]
-    category_text = texts.CATEGORY
+    category_text = texts.CATEGORY[lang]
     
     for cat in categories:
         category_text += f"- {cat['title']}\n"
     
     await message.answer(
         category_text,
-        reply_markup=buttons.get_category(categories)
+        reply_markup=buttons.get_category(categories, lang)
     )
     
     await state.update_data({"coffe": user_text})

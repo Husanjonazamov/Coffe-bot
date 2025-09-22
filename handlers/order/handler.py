@@ -5,7 +5,7 @@ from asyncio.tasks import create_task
 
 from loader import dp, bot
 from utils import texts, buttons
-from services.services import getProduct, getProductDetail
+from services.services import getUser, getProductDetail
 from state.state import CoffeState
 from handlers.start import start_handler
 
@@ -13,9 +13,12 @@ from handlers.start import start_handler
 
 
 async def _task(message: Message, state: FSMContext):
+    user_id=message.from_user.id
+    user = getUser(user_id)
+    lang = user['lang']
     await message.answer(
-        texts.NAME,
-        reply_markup=buttons.BACK
+        texts.NAME[lang],
+        reply_markup=buttons.back_keyboard(lang)
     )    
     
     await CoffeState.name.set()
@@ -24,7 +27,11 @@ async def _task(message: Message, state: FSMContext):
 
 @dp.message_handler(content_types=['text'], state=CoffeState.order)
 async def order_handler(message: Message, state: FSMContext):
-    if message.text == buttons.BACK_TEXT:
+    user_id=message.from_user.id
+    user = getUser(user_id)
+    lang = user['lang']
+    
+    if message.text == buttons.BUTTON_TEXTS[lang]["back"]:
         user_text = message.text.strip()
         data = await state.get_data()
         coffe = data.get("coffe")
@@ -50,5 +57,5 @@ async def order_handler(message: Message, state: FSMContext):
             )
         await CoffeState.quantity.set()
     
-    elif message.text == "✅ Buyurtma berish":
+    elif message.text == buttons.BUTTON_TEXTS[lang]['order']:
         await create_task(_task(message, state))

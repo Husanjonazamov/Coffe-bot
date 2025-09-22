@@ -5,21 +5,25 @@ from asyncio.tasks import create_task
 
 from loader import dp, bot
 from utils import texts, buttons
-from services.services import getProduct, getProductDetail
+from services.services import getUser, getProductDetail
 from state.state import CoffeState
 from handlers.start import start_handler
 from .handler import _task as category_task
 
+
 async def _task(message: Message, state: FSMContext):
-    
+    user_id=message.from_user.id
+    user = getUser(user_id)
+    lang = user['lang']
     user_text = message.text.strip()
     
     
     await state.update_data({"quantity": user_text})
 
     await message.answer(
-        texts.order,
-        reply_markup=buttons.order
+        texts.ORDER[lang],
+        reply_markup=buttons.order_keyboard(lang)
+        
     )    
     
     await CoffeState.order.set()
@@ -28,7 +32,11 @@ async def _task(message: Message, state: FSMContext):
 @dp.message_handler(content_types=['text'], state=CoffeState.quantity)
 async def quantity_handler(message: Message, state: FSMContext):
     print(message.text)
-    if message.text == buttons.BACK_TEXT:
+    user_id=message.from_user.id
+    user = getUser(user_id)
+    lang = user['lang']
+    
+    if message.text == buttons.BUTTON_TEXTS[lang]["back"]:
         data = await state.get_data()
         
         coffe = data.get("coffe")
@@ -36,8 +44,8 @@ async def quantity_handler(message: Message, state: FSMContext):
         detail = getProductDetail(coffe)
         
         categories = detail["data"]["category"]
-        category_text = texts.CATEGORY
-        
+        category_text = texts.CATEGORY[lang]
+        print(categories)
         for cat in categories:
             category_text += f"- {cat['title']}\n"
         

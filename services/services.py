@@ -5,11 +5,12 @@ import requests
 
 
 
-def createUser(user_id: int, first_name: str):
+def createUser(user_id: int, first_name: str, lang):
     url = f"{BASE_URL}/auth/register/"
     payload = {
         "tg_id": int(user_id),
         "first_name": first_name,
+        "lang": lang
     }
 
     try:
@@ -36,29 +37,42 @@ def createUser(user_id: int, first_name: str):
         print("createUser error:", e)
         return {"error": str(e)}
 
+
+
+def getUser(user_id):
+    url = f"{BASE_URL}/auth/me/{user_id}/"
+    try:
+        response = requests.get(url)
+        data = response.json()
+        return data['data']
     
+    except Exception as e:
+        return {"error": str(e)}
+
     
 
-def getProduct():
+def getProduct(lang: str = "uz"):
     url = f"{BASE_URL}/product/"
-    response = requests.get(url)
-    
+    headers = {"Accept-Language": lang}
+
     try:
+        response = requests.get(url, headers=headers)
         data = response.json()
-        products = data["data"]["results"]  # faqat result listini olamiz
+        products = data["data"]
         return products
     except Exception as e:
-        print(e)
-        
-        
-        
+        print("getProduct error:", e)
+        return {"error": str(e)}
 
-def getProductDetail(title):
+
+def getProductDetail(title: str, lang: str = "uz"):
     url = f"{BASE_URL}/product/{title}/"
-    response = requests.get(url)
-    
+    headers = {"Accept-Language": lang}
+
     try:
+        response = requests.get(url, headers=headers)
         data = response.json()
         return data
     except Exception as e:
-        print(e)
+        print("getProductDetail error:", e)
+        return {"error": str(e)}

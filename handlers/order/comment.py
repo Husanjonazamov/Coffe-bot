@@ -5,41 +5,34 @@ from asyncio.tasks import create_task
 
 from loader import dp, bot
 from utils import texts, buttons
-from services.services import getProductDetail
+from services.services import getUser
 from state.state import CoffeState
 
 
 async def _task(message: Message, state: FSMContext):
     user_text = message.text.strip()
     await state.update_data({"comment": user_text})
-
-    data = await state.get_data()
-
-    detail = getProductDetail(data.get("coffe")) 
-    print(detail)
-
-
-    image_file_id = detail["data"]["image"]
-    await bot.send_photo(
-        chat_id=message.chat.id,
-        photo=image_file_id,
-        caption=texts.confirm(
-            coffe=data.get("coffe"),
-            category=data.get("category"),
-            quantity=data.get("quantity"),
-            name=data.get("name"),
-            phone=data.get("phone"),
-            comment=data.get("comment"),
-        ),
-        reply_markup=buttons.CONFIRM
+    user_id=message.from_user.id
+    user = getUser(user_id)
+    lang = user['lang']
+    
+    
+    await message.answer(
+        texts.PAYMENT[lang],
+        reply_markup=buttons.payment_type_keyboard(lang)
     )
 
-    await CoffeState.confirm.set()
+    await CoffeState.payment.set()
+    
 
 
 @dp.message_handler(content_types=['contact', 'text'], state=CoffeState.comment)
 async def phone_handler(message: Message, state: FSMContext):
-    if message.text == buttons.BACK_TEXT:
+    user_id=message.from_user.id
+    user = getUser(user_id)
+    lang = user['lang']
+    
+    if message.text == buttons.BUTTON_TEXTS[lang]["back"]:
         await message.answer(
             texts.PHONE,
             reply_markup=buttons.PHONE

@@ -4,6 +4,9 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 
 
 
+class UserState(StatesGroup):
+    lang = State()
+
 
 class CoffeState(StatesGroup):
     coffe = State()
@@ -15,5 +18,7 @@ class CoffeState(StatesGroup):
     name = State()
     phone = State()
     comment = State()
+    payment = State()
     confirm = State()
+    check = State()
     
