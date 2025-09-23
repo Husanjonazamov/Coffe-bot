@@ -6,7 +6,7 @@ from utils import texts
 from state.state import CoffeState
 from utils.env import CHANNEL
 from services.services import getProductDetail, getUser
-from handlers.start import start_handler
+from handlers.start import _task
 from utils import buttons
 
 
@@ -49,5 +49,7 @@ async def confirm_order(message: types.Message, state: FSMContext):
             )
             
         await state.finish()
-        await start_handler(message, state)
+        await _task(message, state)
+        await CoffeState.coffe.set()
+        
 
