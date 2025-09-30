@@ -53,21 +53,21 @@ ADMIN_CONFIRM = {
 PAYMENT_INFO = {
     "uz": (
         "Iltimos, quyidagi karta raqamiga to‘lovni amalga oshiring:\n\n"
-        "<b><code>9860 1201 7500 0757</code></b>\n\n"
-        "Husanjon Azamov\n\n"
+        "<b><code>8600 4929 8667 8353</code></b>\n\n"
+        "Sirojiddin Haydarov\n\n"
         "💡 To‘lovni amalga oshirgandan so‘ng, iltimos, "
         "chekni yoki screenshotni rasm sifatida menga yuboring."
     ),
     "ru": (
         "Пожалуйста, совершите оплату на следующую карту:\n\n"
-        "<b><code>9860 1201 7500 0757</code></b>\n\n"
-        "Husanjon Azamov\n\n"
+        "<b><code>8600 4929 8667 8353</code></b>\n\n"
+        "Sirojiddin Haydarov\n\n"
         "💡 После оплаты, пожалуйста, отправьте мне чек или скриншот в виде изображения."
     ),
     "en": (
         "Please make the payment to the following card:\n\n"
-        "<b><code>9860 1201 7500 0757</code></b>\n\n"
-        "Husanjon Azamov\n\n"
+        "<b><code>8600 4929 8667 8353</code></b>\n\n"
+        "Sirojiddin Haydarov\n\n"
         "💡 After making the payment, please send me the receipt or screenshot as a photo."
     )
 }
