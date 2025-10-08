@@ -22,3 +22,7 @@ class CoffeState(StatesGroup):
     confirm = State()
     check = State()
     
+    
+class LangUpdate(StatesGroup):
+    lang = State()
+    

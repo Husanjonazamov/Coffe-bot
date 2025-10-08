@@ -48,6 +48,23 @@ def getUser(user_id):
     
     except Exception as e:
         return {"error": str(e)}
+    
+    
+
+
+def patchUser(tg_id, lang):
+    url = f"{BASE_URL}/auth/user-update/"
+    payload = {
+        "tg_id": tg_id,
+        "lang": lang
+    }
+    try:
+        response = requests.patch(url, json=payload)
+        response.raise_for_status() 
+        data = response.json()
+        return data.get('data', data) 
+    except Exception as e:
+        return {"error": str(e)}
 
     
 

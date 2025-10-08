@@ -1,6 +1,5 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-
 BUTTON_TEXTS = {
     "uz": {
         "back": "⬅️ Orqaga",
@@ -10,7 +9,8 @@ BUTTON_TEXTS = {
         "cancel": "❌ Bekor qilish",
         "card": "💳 Karta orqali",
         "cash": "💵 Naqd pul",
-        "accepted": "✅ Qabul qilindi"
+        "accepted": "✅ Qabul qilindi",
+        "change_lang": "🌐 Tilni o‘zgartirish"   # 🔥 qo‘shildi
     },
     "ru": {
         "back": "⬅️ Назад",
@@ -20,7 +20,8 @@ BUTTON_TEXTS = {
         "cancel": "❌ Отменить",
         "card": "💳 По карте",
         "cash": "💵 Наличные",
-        "accepted": "✅ Принято"
+        "accepted": "✅ Принято",
+        "change_lang": "🌐 Сменить язык"         # 🔥 qo‘shildi
     },
     "en": {
         "back": "⬅️ Back",
@@ -30,7 +31,8 @@ BUTTON_TEXTS = {
         "cancel": "❌ Cancel",
         "card": "💳 By card",
         "cash": "💵 Cash",
-        "accepted": "✅ Accepted"
+        "accepted": "✅ Accepted",
+        "change_lang": "🌐 Change language"      # 🔥 qo‘shildi
     }
 }
 
@@ -42,21 +44,28 @@ def back_keyboard(lang="uz"):
         resize_keyboard=True
     )
     return keyboard
+
+
+
+
 def get_product(products, lang="uz"):
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-    
+
+    change_lang_text = BUTTON_TEXTS.get(lang, BUTTON_TEXTS["uz"])["change_lang"]
+    keyboard.add(KeyboardButton(text=change_lang_text))
+
     for product in products:
         if isinstance(product, dict):
             title = product.get("title") or "Noma'lum"
         else:
             title = str(product)
-        keyboard.insert(KeyboardButton(text=title))  
-    
-    # Back tugmasi 3 tilda
+        keyboard.insert(KeyboardButton(text=title))
+
     back_text = BUTTON_TEXTS.get(lang, BUTTON_TEXTS["uz"])["back"]
     keyboard.add(KeyboardButton(text=back_text))
-    
+
     return keyboard
+
 
 # Kategoriyalar uchun
 def get_category(categories, lang="uz"):
