@@ -72,6 +72,9 @@ PAYMENT_INFO = {
     )
 }
 
+
+
+
 def product_detail(detail: dict, categories_text: str, lang: str = "uz") -> str:
     data = detail.get("data", {})
     
