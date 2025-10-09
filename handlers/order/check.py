@@ -43,6 +43,6 @@ async def check_order(message: types.Message, state: FSMContext):
             text=f"📩 Yangi buyurtma keldi!\n\n{text}"
         )
 
-    await start_handler(message, state)
-
     await state.finish()
+    await start_handler(message, state)
+    await CoffeState.coffe.set()
